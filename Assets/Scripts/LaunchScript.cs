@@ -21,7 +21,7 @@ public class LaunchScript : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        
+       
         randomizeForce = Random.Range(5, 7);
 
         rotationX = Random.Range(-1, 1);

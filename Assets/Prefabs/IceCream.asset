@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fb74ff5f4a4f764ba2ab7e82ffea044, type: 3}
   m_Name: IceCream
   m_EditorClassIdentifier: 
-  Name: IceCream
-  Calories: 207
+  name: IceCream
+  calories: 273
+  calPer100g: 0
+  weight: 0
   isFood: 1

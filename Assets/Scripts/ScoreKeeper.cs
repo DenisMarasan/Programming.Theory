@@ -1,8 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System;
 
 public class ScoreKeeper : MonoBehaviour
 {
@@ -10,10 +8,11 @@ public class ScoreKeeper : MonoBehaviour
     int score;
     int topScore;
 
-    int valueCountDown = 10;
+    int timerValue = 10;
     bool isCountingDown = false;
-
+    bool isTimerActivated = false;
     bool isGameOver = false;
+    public bool IsGameOver => isGameOver;
 
     //bool isFood = true;
     
@@ -25,51 +24,70 @@ public class ScoreKeeper : MonoBehaviour
 
     void AddScore(ClickEventData data)
     {
+        if (isGameOver) return;
+        
         bool isClicked = data.IsClicked;
         bool isCollided = data.IsCollided;
         int calories = data.Calories;
 
         score += calories;
 
-        if (score < 0)
-        {
-            score = 0;
-        }
+        if (score < 0) score = 0;
 
-        if (score > topScore)
+        if (score >= topScore)
         {
             topScore = score;
-            valueCountDown = 10;
+            timerValue = 10;
+            isTimerActivated = false;
+            isCountingDown = false;
+            Show1();
         }
 
         if (score < topScore)
         {
             isCountingDown = true;
-            tmpro.text = "Score: " + score.ToString() + " Best: " + topScore.ToString();
-            tmpro.text = "Timer: " + valueCountDown.ToString();
+            Show2();
         }
+
+        if (isCountingDown)
+        {
+            Show3();
+            if (!isTimerActivated) StartCoroutine(Timer());
+        }
+
     }
+
+    void Show1() => tmpro.text = $"Score: {score.ToString()} cal.";
+    void Show2() => tmpro.text = $"Score: {score.ToString()} cal. \nYour best: {topScore.ToString()}";
+    void Show3() => tmpro.text = $"Score: {score.ToString()} cal. \nYour best: {topScore.ToString()} \nTimer: {timerValue.ToString()}";
 
     void Update()
     {
-        if (valueCountDown == 0)
+        if (timerValue == 0)
         {
             isGameOver = true;
             isCountingDown = false;
             return;
         }
-
-        if (isCountingDown && !isGameOver)
-        {
-            Timer();
-            valueCountDown--;
-        }
     }
 
     IEnumerator Timer()
     {
-        isCountingDown = false;
-        yield return new WaitForSeconds(1);
-        isCountingDown = true;
+        if (isGameOver)
+        {
+            isTimerActivated = false;
+            Show2();
+            yield break;
+        }
+
+        isTimerActivated = true;
+
+        for (int i = 10; i > 0; i--)
+        {
+            if (!isCountingDown) yield break;
+            yield return new WaitForSeconds(1);
+            timerValue--;
+            Show3();
+        }
     }
 }

@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fb74ff5f4a4f764ba2ab7e82ffea044, type: 3}
   m_Name: Milk
   m_EditorClassIdentifier: 
+  name: Milk
+  calories: 0
+  calPer100g: 42
+  weight: 200
+  isFood: 0

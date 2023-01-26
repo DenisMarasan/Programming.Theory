@@ -1,5 +1,3 @@
-//using System.Collections;
-//using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
@@ -8,11 +6,18 @@ public class Launcher : MonoBehaviour
     [SerializeField] GameObject[] prefabs = null;
     [SerializeField] Vector3 spawningPosition;
 
+    ScoreKeeper scoreKeeper;
+
     bool isReady2Launch = true;
     float speedupTimer;
 
     public static Vector3 LLCoord { get; private set; } //ENCAPSULATION
     public static Vector3 URCoord { get; private set; } //ENCAPSULATION
+
+    void Awake()
+    {
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
+    }
 
     void Start ()
     {
@@ -37,7 +42,7 @@ public class Launcher : MonoBehaviour
     {
         yield return new WaitForSeconds(100 / speedupTimer);
         isReady2Launch = true;
-        speedupTimer += 1f;
-    }
 
+        if (scoreKeeper.IsGameOver) speedupTimer = 100f; else speedupTimer += 1f;
+    }
 }
