@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cake
   m_EditorClassIdentifier: 
   name: Cake
-  calories: 0
+  calories: 1490
   calPer100g: 552
   weight: 270
   isFood: 1

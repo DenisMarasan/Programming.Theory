@@ -14,7 +14,7 @@ public class Enemy : ScriptableObject //INHERITANCE
     {
         get
         {
-            if (calories == 0) calories = calPer100g * 100 / weight;
+            if (calories == 0) calories = calPer100g * weight / 100;
             return calories;
         }
     }

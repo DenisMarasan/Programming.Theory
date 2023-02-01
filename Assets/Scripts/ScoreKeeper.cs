@@ -30,7 +30,9 @@ public class ScoreKeeper : MonoBehaviour
         bool isCollided = data.IsCollided;
         int calories = data.Calories;
 
-        score += calories;
+        int calRandomizer = Random.Range(-calories/10, calories/10);
+
+        score += calories + calRandomizer;
 
         if (score < 0) score = 0;
 
@@ -40,26 +42,25 @@ public class ScoreKeeper : MonoBehaviour
             timerValue = 10;
             isTimerActivated = false;
             isCountingDown = false;
-            Show1();
+            Show1Line();
         }
 
         if (score < topScore)
         {
             isCountingDown = true;
-            Show2();
+            Show2Lines();
         }
 
         if (isCountingDown)
         {
-            Show3();
+            Show3Lines();
             if (!isTimerActivated) StartCoroutine(Timer());
         }
-
     }
 
-    void Show1() => tmpro.text = $"Score: {score.ToString()} cal.";
-    void Show2() => tmpro.text = $"Score: {score.ToString()} cal. \nYour best: {topScore.ToString()}";
-    void Show3() => tmpro.text = $"Score: {score.ToString()} cal. \nYour best: {topScore.ToString()} \nTimer: {timerValue.ToString()}";
+    void Show1Line() => tmpro.text = $"Burned: {score.ToString()} cal.";
+    void Show2Lines() => tmpro.text = $"Burned: {score.ToString()} cal. \nYour best: {topScore.ToString()}";
+    void Show3Lines() => tmpro.text = $"Burned: {score.ToString()} cal. \nYour best: {topScore.ToString()} \nTimer: {timerValue.ToString()}";
 
     void Update()
     {
@@ -76,7 +77,7 @@ public class ScoreKeeper : MonoBehaviour
         if (isGameOver)
         {
             isTimerActivated = false;
-            Show2();
+            Show2Lines();
             yield break;
         }
 
@@ -87,7 +88,7 @@ public class ScoreKeeper : MonoBehaviour
             if (!isCountingDown) yield break;
             yield return new WaitForSeconds(1);
             timerValue--;
-            Show3();
+            Show3Lines();
         }
     }
 }

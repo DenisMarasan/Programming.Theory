@@ -57,7 +57,7 @@ public class Destroy : MonoBehaviour
     void Update()
     {
         CheckVisibility();
-        DestroyWhenGameOver();
+        DestroyWhenGameOver(); //ABSTRACTION
     }
 
     private void DestroyWhenGameOver() //ABSTRACTION
@@ -74,7 +74,7 @@ public class Destroy : MonoBehaviour
         lastFramePos = transform.position;
     }
 
-    void CheckVisibility() //ABSTRACTION
+    void CheckVisibility()
     {
         if (transform.position.y > Launcher.URCoord.y)
         {
@@ -82,7 +82,7 @@ public class Destroy : MonoBehaviour
         }
     }
 
-    void INeedABetterNameForThis() //ABSTRACTION
+    void INeedABetterNameForThis()
     {
         if (!scoreKeeper.IsGameOver) EventManager.Clicked.Invoke(new ClickEventData(isClicked, isFood, isCollided, calories));
 
