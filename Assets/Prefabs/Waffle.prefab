@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3d057b6bc133a43aae3ff74633a427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 12
   DoRotate: 0
 --- !u!114 &3653223349999073846
 MonoBehaviour:
@@ -116,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 11400000, guid: d1043d0a84f74fd42b2854874fde299b, type: 2}
-  calories: 0
+  isClicked: 0
 --- !u!65 &6865019085250602683
 BoxCollider:
   m_ObjectHideFlags: 0

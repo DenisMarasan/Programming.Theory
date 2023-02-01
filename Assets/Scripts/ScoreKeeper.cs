@@ -30,9 +30,9 @@ public class ScoreKeeper : MonoBehaviour
         bool isCollided = data.IsCollided;
         int calories = data.Calories;
 
-        int calRandomizer = Random.Range(-calories/10, calories/10);
+        //int calRandomizer = Random.Range(-calories/10, calories/10);
 
-        score += calories + calRandomizer;
+        score += calories; // + calRandomizer;
 
         if (score < 0) score = 0;
 

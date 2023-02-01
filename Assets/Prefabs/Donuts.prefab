@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.23128879, y: 0, z: -0.06637156}
-  m_LocalScale: {x: 0.9075736, y: 0.9075736, z: 0.9075736}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a3d057b6bc133a43aae3ff74633a427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  force: 10
   DoRotate: 0
 --- !u!114 &-3622545230229125676
 MonoBehaviour:
@@ -116,7 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 11400000, guid: 3595cc762e4dba543a3e586009bd68b1, type: 2}
-  calories: 0
+  isClicked: 0
 --- !u!54 &2761743340437521677
 Rigidbody:
   m_ObjectHideFlags: 0
