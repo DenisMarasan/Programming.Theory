@@ -1,14 +1,21 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class ScoreKeeper : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI tmpro;
-    int score;
+    [SerializeField] TextMeshProUGUI scoreField;
+    [SerializeField] TextMeshProUGUI highScoreField;
+    [SerializeField] TextMeshProUGUI playerName;
+    [SerializeField] GameObject highScoreUI;
+
+    public static int Score { get; private set; }
+
     int topScore;
 
-    int timerValue = 10;
+    int timerValue;
     bool isCountingDown = false;
     bool isTimerActivated = false;
     bool isGameOver = false;
@@ -19,7 +26,16 @@ public class ScoreKeeper : MonoBehaviour
     void Awake()
     {
         EventManager.Clicked.AddListener(AddScore);
-        topScore = score;
+    }
+
+    void Start()
+    {
+        isGameOver = false;
+        Score = 0;
+        topScore = Score;
+        timerValue = 10;
+
+        playerName.text = "Hey, " + UIScript.PlayerName + ", you burned";
     }
 
     void AddScore(ClickEventData data)
@@ -32,20 +48,21 @@ public class ScoreKeeper : MonoBehaviour
 
         //int calRandomizer = Random.Range(-calories/10, calories/10);
 
-        score += calories; // + calRandomizer;
+        Score += calories; // + calRandomizer;
 
-        if (score < 0) score = 0;
+        if (Score < 0) Score = 0;
 
-        if (score >= topScore)
+        if (Score >= topScore)
         {
-            topScore = score;
+            topScore = Score;
             timerValue = 10;
             isTimerActivated = false;
             isCountingDown = false;
+            highScoreField.text = topScore.ToString();
             Show1Line();
         }
 
-        if (score < topScore)
+        if (Score < topScore)
         {
             isCountingDown = true;
             Show2Lines();
@@ -58,17 +75,26 @@ public class ScoreKeeper : MonoBehaviour
         }
     }
 
-    void Show1Line() => tmpro.text = $"Burned: {score.ToString()} cal.";
-    void Show2Lines() => tmpro.text = $"Burned: {score.ToString()} cal. \nYour best: {topScore.ToString()}";
-    void Show3Lines() => tmpro.text = $"Burned: {score.ToString()} cal. \nYour best: {topScore.ToString()} \nTimer: {timerValue.ToString()}";
+    void Show1Line() => scoreField.text = $"Burned: {Score.ToString()} cal.";
+    void Show2Lines() => scoreField.text = $"Burned: {Score.ToString()} cal. \nYour best: {topScore.ToString()}";
+    void Show3Lines() => scoreField.text = $"Burned: {Score.ToString()} cal. \nYour best: {topScore.ToString()} \nTimer: {timerValue.ToString()}";
 
     void Update()
     {
-        if (timerValue == 0)
+        if (timerValue <= 0)
         {
             isGameOver = true;
             isCountingDown = false;
-            return;
+            scoreField.gameObject.SetActive(false);
+        }
+
+        if (scoreField.gameObject.activeInHierarchy) 
+        {
+            highScoreUI.gameObject.SetActive(false);
+        } 
+        else
+        {
+            highScoreUI.gameObject.SetActive(true);
         }
     }
 
@@ -77,7 +103,6 @@ public class ScoreKeeper : MonoBehaviour
         if (isGameOver)
         {
             isTimerActivated = false;
-            Show2Lines();
             yield break;
         }
 
@@ -90,5 +115,10 @@ public class ScoreKeeper : MonoBehaviour
             timerValue--;
             Show3Lines();
         }
+    }
+
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

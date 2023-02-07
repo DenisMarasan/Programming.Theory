@@ -8,7 +8,7 @@ public class Destroy : MonoBehaviour
 {
     [SerializeField] Enemy enemy;
     int calories;
-    
+
     ParticleSystem ps;
     MeshRenderer mr;
     Rigidbody rb;
